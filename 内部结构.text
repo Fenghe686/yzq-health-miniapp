@@ -1,0 +1,17 @@
+yzq-health-miniapp/
+├── app.js
+├── app.json
+├── app.wxss
+├── project.config.json
+├── pages/
+│   ├── index/
+│   │   ├── index.js
+│   │   ├── index.wxml
+│   │   └── index.wxss
+│   └── service/
+│       ├── list.js
+│       ├── list.wxml
+│       └── list.wxss
+└── cloudfunctions/
+    └── createOrder/
+        └── index.js
