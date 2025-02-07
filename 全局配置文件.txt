@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/service/list"
+  ],
+  "window": {
+    "navigationBarTitleText": "益正全健康",
+    "navigationBarBackgroundColor": "#2B8C69",
+    "navigationBarTextStyle": "white"
+  },
+  "cloud": true
+}

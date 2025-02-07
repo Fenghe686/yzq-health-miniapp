@@ -1,0 +1,4 @@
+<view class="container">
+  <image src="/images/logo.png" class="logo"></image>
+  <navigator url="/pages/service/list" class="nav-btn">立即预约服务</navigator>
+</view>
