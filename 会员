@@ -1,0 +1,41 @@
+// cloudfunctions/memberLevel/index.js
+const cloud = require('wx-server-sdk')
+cloud.init()
+
+// 会员等级规则配置
+const LEVEL_RULES = {
+  1: { name: '普通会员', required: 0 },
+  2: { name: '白银会员', required: 1000 },
+  3: { name: '黄金会员', required: 5000 },
+  4: { name: '铂金会员', required: 20000 },
+  5: { name: '钻石会员', required: 50000 }
+}
+
+exports.main = async (event, context) => {
+  const { userInfo, totalSpent } = event
+  const db = cloud.database()
+  
+  // 计算当前等级
+  let currentLevel = 1
+  Object.keys(LEVEL_RULES).reverse().forEach(level => {
+    if (totalSpent >= LEVEL_RULES[level].required) {
+      currentLevel = Math.max(currentLevel, parseInt(level))
+    }
+  })
+
+  // 更新会员信息
+  await db.collection('members').doc(userInfo.openId).update({
+    data: {
+      level: currentLevel,
+      levelName: LEVEL_RULES[currentLevel].name,
+      totalSpent: totalSpent,
+      updateTime: db.serverDate()
+    }
+  })
+
+  return {
+    level: currentLevel,
+    levelName: LEVEL_RULES[currentLevel].name,
+    nextLevel: currentLevel < 5 ? LEVEL_RULES[currentLevel+1] : null
+  }
+}
