@@ -1,0 +1,36 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <!-- 轮播图 -->
+  <swiper class="banner" autoplay interval="5000">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image src="{{item.image}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 快捷入口 -->
+  <view class="quick-nav">
+    <navigator url="/pages/reservation/index" class="nav-item">
+      <image src="/images/icon-booking.png" />
+      <text>立即预约</text>
+    </navigator>
+    <navigator url="/pages/mall/index" class="nav-item">
+      <image src="/images/icon-shop.png" />
+      <text>健康商城</text>
+    </navigator>
+    <navigator url="/pages/member/index" class="nav-item">
+      <image src="/images/icon-member.png" />
+      <text>会员中心</text>
+    </navigator>
+  </view>
+
+  <!-- 会员特权展示 -->
+  <view class="vip-card" wx:if="{{userInfo}}">
+    <view class="vip-level">当前等级：{{userInfo.levelName}}</view>
+    <progress percent="{{(userInfo.totalSpent/LEVEL_RULES[userInfo.level+1]?.required)*100 || 0}}" />
+    <view class="vip-benefits">
+      <text>专属折扣 {{(1 - userInfo.level*0.05).toFixed(2)}}折</text>
+      <text>优先预约</text>
+      <text>专属顾问</text>
+    </view>
+  </view>
+</view>
